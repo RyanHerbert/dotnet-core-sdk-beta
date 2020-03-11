@@ -3,13 +3,15 @@
     using System;
     using Microsoft.Extensions.Logging;
 
+
     public static class LogFactory
     {
-        private static ILoggerFactory LoggerFactory => new LoggerFactory().AddDebug(LogLevel.Debug);
-
         public static ILogger getLog(Type classType)
         {
-            return LoggerFactory.CreateLogger(classType.FullName);
+            return LoggerFactory.Create(builder =>
+            {
+                builder.AddDebug();
+            }).CreateLogger(classType.FullName);
         }
     }
 }
